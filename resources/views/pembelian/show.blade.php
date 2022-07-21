@@ -33,7 +33,10 @@
                             <input type="text" class="form-control " name="jumlah_barang" value="{{ $pembelian->jumlah_barang }}"
                                 readonly>
                         </div>
-                       
+                        <div class="mb-3">
+                            <label class="form-label">Total Harga :</label>
+                            <b>Rp.{{ number_format($pembelian->total_harga, 0 ,',','.') }}</b>
+                        </div>
                         <div class="mb-3">
                             <div class="d-grid gap-2">
                                 <a href="{{ route('pembelian.index') }}" class="btn btn-primary" type="submit">Kembali</a>
