@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Pembelian;
 
 class PembelianController extends Controller
@@ -41,6 +40,7 @@ class PembelianController extends Controller
      */
     public function store(Request $request)
     {
+        // validasi
         $validated = $request->validate([
             'nama' => 'required',
             'tgl_pembelian' => 'required',
@@ -55,6 +55,7 @@ class PembelianController extends Controller
         $pembelian->nama_barang = $request->nama_barang;
         $pembelian->harga_satuan = $request->harga_satuan;
         $pembelian->jumlah_barang = $request->jumlah_barang;
+        $pembelian->total_harga = $pembelian->harga_satuan * $pembelian->jumlah_barang;
         $pembelian->save();
         return redirect()->route('pembelian.index')
             ->with('success', 'Data berhasil dibuat!');
@@ -93,6 +94,7 @@ class PembelianController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // validasi
         $validated = $request->validate([
             'nama' => 'required',
             'tgl_pembelian' => 'required',
@@ -101,12 +103,13 @@ class PembelianController extends Controller
             'jumlah_barang' => 'required',
         ]);
 
-        $pembelian = new Pembelian();
+        $pembelian = Pembelian::findOrFail($id);
         $pembelian->nama = $request->nama;
         $pembelian->tgl_pembelian = $request->tgl_pembelian;
         $pembelian->nama_barang = $request->nama_barang;
         $pembelian->harga_satuan = $request->harga_satuan;
         $pembelian->jumlah_barang = $request->jumlah_barang;
+        $pembelian->total_harga = $pembelian->harga_satuan * $pembelian->jumlah_barang;
         $pembelian->save();
         return redirect()->route('pembelian.index')
             ->with('success', 'Data berhasil diedit!');
