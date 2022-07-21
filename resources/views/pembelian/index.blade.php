@@ -38,9 +38,9 @@
                                             <td>{{ $data->nama }}</td>
                                             <td>{{ date('d M Y', strtotime($data->tgl_pembelian)) }}</td>
                                             <td>{{ $data->nama_barang }}</td>
-                                            <td>{{ $data->harga_satuan }}</td>
+                                            <td>Rp.{{ number_format($data->harga_satuan, 0,',','.') }}</td>
                                             <td>{{ $data->jumlah_barang }}</td>
-                                            <td>{{ $data->total_harga }}</td>
+                                            <td>Rp.{{ number_format($data->total_harga, 0,',','.') }}</td>
                                             <td>
                                                 <form action="{{ route('pembelian.destroy', $data->id) }}" method="post">
                                                     @csrf
