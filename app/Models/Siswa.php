@@ -14,4 +14,11 @@ class Siswa extends Model
     // aktif
     public $timestamps = true;
 
+    //membuat relasi one to one
+    public function wali()
+    {
+        //data dari model 'siswa' bisa dimiliki 1 data
+        //dati model 'wali' melalui id_siswa
+        return $this->hasOne(Wali::class, 'id_siswa');
+    }
 }

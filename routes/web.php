@@ -1,7 +1,9 @@
 <?php
-//panggil controller Siswa
+// panggil controller Siswa
 use App\Http\Controllers\SiswaController;
-//panggil controller pembelian
+// panggil controller wali
+use App\Http\Controllers\WaliController;
+// panggil controller pembelian
 use App\Http\Controllers\PembelianController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,4 +39,5 @@ function() {
     });
     Route::resource('siswa', SiswaController::class);
     Route::resource('pembelian', PembelianController::class);
+    Route::resource('wali', WaliController::class);
 });
