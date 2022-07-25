@@ -7,13 +7,13 @@
                 @include('layouts/_flash')
                 <div class="card">
                     <div class="card-header">
-                        Data Pembelian
+                        Data Wali
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('pembelian.store') }}" method="post">
+                        <form action="{{ route('wali.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label class="form-label">Nama</label>
+                                <label class="form-label">Nama Wali</label>
                                 <input type="text" class="form-control  @error('nama') is-invalid @enderror"
                                     name="nama">
                                 @error('nama')
@@ -23,44 +23,27 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Tanggal Pembelian</label>
-                                <input type="date" class="form-control  @error('tgl_pembelian') is-invalid @enderror"
-                                    name="tgl_pembelian">
-                                @error('tgl_pembelian')
+                                <label class="form-label">Foto Wali</label>
+                                <input type="file" class="form-control  @error('foto') is-invalid @enderror"
+                                    name="foto">
+                                @error('foto')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Nama Barang</label>
-                                <input type="text" class="form-control  @error('nama_barang') is-invalid @enderror"
-                                    name="nama_barang">
-                                @error('nama_barang')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <label class="form-label">Pilih Data Siswa</label>
+                                <select name="id_siswa" class="form-control @error('id_siswa') is-invalid @enderror" id="">
+                                    @foreach($siswa as $data)
+                                        <option value="{{ $data->id }}">{{ $data->nama }}</option>
+                                    @endforeach
+                                @error('id_siswa')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Harga Satuan</label>
-                                <input type="text" class="form-control  @error('harga_satuan') is-invalid @enderror"
-                                    name="harga_satuan">
-                                @error('harga_satuan')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Jumlah Barang</label>
-                                <input type="text" class="form-control  @error('jumlah_barang') is-invalid @enderror"
-                                    name="jumlah_barang">
-                                @error('jumlah_barang')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <div class="d-grid gap-2">

@@ -10,13 +10,13 @@
                         Data Pembelian
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('pembelian.update', $pembelian->id) }}" method="post">
+                        <form action="{{ route('wali.update', $wali->id) }}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('put')
                             <div class="mb-3">
-                                <label class="form-label">Nama</label>
+                                <label class="form-label">Nama Wali</label>
                                 <input type="text" class="form-control  @error('nama') is-invalid @enderror"
-                                    name="nama" value="{{ $pembelian->nama }}">
+                                    name="nama" value="{{ $wali->nama }}">
                                 @error('nama')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -24,48 +24,37 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Tanggal Pembelian</label>
-                                <input type="date" class="form-control  @error('tgl_pembelian') is-invalid @enderror"
-                                    name="tgl_pembelian" value="{{ $pembelian->tgl_pembelian }}">
-                                @error('tgl_pembelian')
+                                <label class="form-label">Foto Wali</label>
+                                @if (isset($wali) && $wali->foto)
+                                    <p>
+                                        <img src="{{ asset('images/wali/' . $wali->foto) }}" 
+                                        class="img-rounded img-responsive" style="width: 75px; height: 75px;" 
+                                        alt="">
+                                    </p>
+                                @endif
+                                <input type="file" class="form-control  @error('foto') is-invalid @enderror"
+                                    name="foto">
+                                @error('foto')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label">Nama Barang</label>
-                                <input type="text" class="form-control  @error('nama_barang') is-invalid @enderror"
-                                    name="nama_barang" value="{{ $pembelian->nama_barang }}">
-                                @error('nama_barang')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <label class="form-label">Pilih Data Siswa</label>
+                                <select name="id_siswa" class="form-control @error('id_siswa') is-invalid @enderror" readonly>
+                                    @foreach($siswa as $data)
+                                        <option value="{{ $data->id }}"
+                                            {{ $data->id == $wali->id_siswa ? 'selected' : '' }}>
+                                            {{ $data->nama }}
+                                        </option>
+                                    @endforeach
+                                @error('id_siswa')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Harga Satuan</label>
-                                <input type="text" class="form-control  @error('harga_satuan') is-invalid @enderror"
-                                    name="harga_satuan" value="{{ $pembelian->harga_satuan }}">
-                                @error('harga_satuan')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Jumlah Barang</label>
-                                <input type="text" class="form-control  @error('jumlah_barang') is-invalid @enderror"
-                                    name="jumlah_barang" value="{{ $pembelian->jumlah_barang }}">
-                                @error('jumlah_barang')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Total Harga :</label>
-                                <b>Rp.{{ number_format($pembelian->total_harga, 0 ,',','.') }}</b>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <div class="d-grid gap-2">

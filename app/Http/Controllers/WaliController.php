@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Wali;
+use App\Models\Siswa;
 
 class WaliController extends Controller
 {
@@ -26,7 +27,7 @@ class WaliController extends Controller
     public function create()
     {
         $siswa = Siswa::all();
-        return view('wali.index', compact('siswa'));
+        return view('wali.create', compact('siswa'));
     }
 
     /**
@@ -79,7 +80,7 @@ class WaliController extends Controller
     public function edit($id)
     {
         $wali = Wali::findOrFail($id);
-        $siswa = new Siswa();
+        $siswa = Siswa::all();
         return view('wali.edit', compact('wali', 'siswa'));
     }
 
@@ -124,7 +125,7 @@ class WaliController extends Controller
     {
         $wali = Wali::findOrFail($id);
         $wali->deleteImage();
-        $article->delete();
+        $wali->delete();
         return redirect()->route('wali.index')
             ->with('success', 'Data berhasil dihapus!');
     }

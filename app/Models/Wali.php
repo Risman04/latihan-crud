@@ -21,16 +21,16 @@ class Wali extends Model
 
     public function image()
     {
-        if($this->foto && file_exist(public_path('images/wali/' . $this->foto))) {
+        if($this->foto && file_exists(public_path('images/wali/' . $this->foto))) {
             return asset('images/wali/' . $this->foto);
         } else {
-            return asset('images/no_images.jpg');
+            return asset('images/no_image.jpg');
         }
     }
 
     public function deleteImage()
     {
-        if($this->foto && file_exist(public_path('images/wali/' . $this->foto))) {
+        if($this->foto && file_exists(public_path('images/wali/' . $this->foto))) {
             return unlink(public_path('images/wali/' . $this->foto));
         }
     }
